@@ -1,0 +1,62 @@
+<button class="btn btn-primary" (click)="openModal()">
+    <i class="fa fa-plus"> Add Question Here </i>
+</button>
+
+<ng-template #template>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Add a Question Here</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+
+
+    <div class="modal-body">
+        <div class="mb-3">
+            <label for="add question"> Add a Question Here : </label> &nbsp;
+            <select (change)="selectQuestionType($event)">
+                <option *ngFor="let type of questionType"
+                    [value]="type.value">
+                    {{ type.valueType }}
+                </option>
+            </select>
+        </div>
+
+        <!-- Add a formBuilder here -->
+        <form [formGroup]="mainForm">
+            <div formArrayName="firstForm">
+                <ng-container *ngIf=" selectedFormName == null || selectedFormName == 'form1'; else formSectionTwo">
+                    <div *ngFor="let group of dynamicFormGroup.controls; let i=index;">
+                        <div [formGroupName]="i">
+                            <div class="mb-3">
+                                <label for="question">Add a Question here: </label> &nbsp;
+                                <input type="text" class="form-control" 
+                                 formControlName="paragraphQuestion" placeholder="add question here">
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+
+            <ng-template #formSectionTwo>
+                <div formArrayName="secondForm">
+                    <div *ngFor="let form of secondDynamicFormGroup.controls; let i=index">
+                        <input type="text" class="form-control" [formControlName]="i" placeholder="add question here">
+                        <input type="text" class="form-control"
+                        formControlName="questionForCheckBox"
+                        placeholder="Add a Question Here">
+                    </div>
+                </div>
+                <button (click)="addExtraQuestion()"> Add Question </button>
+                <div formArrayName="addQuestion">
+                    <div class="form-group" 
+                        *ngFor="let question of getAddQuestionFormGroup.controls; let i = index">
+                        <input type="text" class="form-control" [formControlName]="i" placeholder="add question here">
+                    </div>
+                </div>
+            </ng-template>
+
+            <button class="btn btn-primary" (click)="submitForm()">Submit The Form</button>
+        </form>
+    </div>
+</ng-template>
