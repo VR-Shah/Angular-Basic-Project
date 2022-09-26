@@ -15,8 +15,7 @@
         <div class="mb-3">
             <label for="add question"> Add a Question Here : </label> &nbsp;
             <select (change)="selectQuestionType($event)">
-                <option *ngFor="let type of questionType"
-                    [value]="type.value">
+                <option *ngFor="let type of questionType" [value]="type.value">
                     {{ type.valueType }}
                 </option>
             </select>
@@ -30,8 +29,8 @@
                         <div [formGroupName]="i">
                             <div class="mb-3">
                                 <label for="question">Add a Question here: </label> &nbsp;
-                                <input type="text" class="form-control" 
-                                 formControlName="paragraphQuestion" placeholder="add question here">
+                                <input type="text" class="form-control" formControlName="paragraphQuestion"
+                                    placeholder="add question here">
                             </div>
                         </div>
                     </div>
@@ -41,16 +40,15 @@
             <ng-template #formSectionTwo>
                 <div formArrayName="secondForm">
                     <div *ngFor="let form of secondDynamicFormGroup.controls; let i=index">
-                        <input type="text" class="form-control" [formControlName]="i" placeholder="add question here">
-                        <input type="text" class="form-control"
-                        formControlName="questionForCheckBox"
-                        placeholder="Add a Question Here">
+                        <input type="text" class="form-control" formControlName="questionForCheckBox"
+                            placeholder="Add a Question Here">
+                        <input type="text" class="form-control" [formControlName]="i" 
+                        placeholder="add question here">
                     </div>
                 </div>
                 <button (click)="addExtraQuestion()"> Add Question </button>
                 <div formArrayName="addQuestion">
-                    <div class="form-group" 
-                        *ngFor="let question of getAddQuestionFormGroup.controls; let i = index">
+                    <div class="form-group" *ngFor="let question of getAddQuestionFormGroup.controls; let i = index">
                         <input type="text" class="form-control" [formControlName]="i" placeholder="add question here">
                     </div>
                 </div>
